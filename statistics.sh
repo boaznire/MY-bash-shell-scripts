@@ -32,9 +32,7 @@ printf "%s Processes: \t"
 echo $PROCESES
 #RAM usage
 #
-
 free -h | sed '2!d' > /tmp/memory
-
 awk '{printf ("%s",$3)}'  /tmp/memory > /tmp/memory1
 sed -i 's/[^0-9]*//g' /tmp/memory1
 echo >> /tmp/memory1
