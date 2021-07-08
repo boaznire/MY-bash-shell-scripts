@@ -98,4 +98,34 @@ PROCESES=$(( $COUNT-1 ))
 
 printf "%s Processes: \t"
 echo $PROCESES
+#RAM usage
+#
+
+free -h | sed '2!d' > /tmp/memory
+
+awk '{printf ("%s",$3)}'  /tmp/memory > /tmp/memory1
+sed -i 's/[^0-9]*//g' /tmp/memory1
+echo >> /tmp/memory1
+RAMINUSE=$(cat /tmp/memory1)
+
+awk '{printf ("%s",$2)}' memory.txt > memory2.txt
+sed -i 's/[^.*0-9]//g' memory2.txt
+
+PHISICALRAM=$(cat memory2.txt)
+PHISICALRAM=$(expr $PHISICALRAM\*1000 | bc) 
+
+DIVIDE=$(expr $RAMINUSE/$PHISICALRAM | bc -l)
+MEMORY=$(expr $DIVIDE*100 | bc)
+echo "%" > precent
+PRECENT=$(cat precent)
+
+printf "Memory usage: %.1f" $MEMORY 
+printf "%s" $PRECENT
+
+#Users logged in
+
+USERS=$(who | wc -l)
+
+printf "%s \t\t Users logged in: "
+echo $USERS
 
