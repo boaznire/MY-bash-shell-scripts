@@ -29,7 +29,37 @@ df -h /dev/mapper/debian--vg-root > /tmp/usage1 | sed -i '1d' /tmp/usage1
 printf "%s usage of /:   "
 awk '{printf("%s of ",$5)}' /tmp/usage1
 df -h /dev/mapper/debian--vg-root > /tmp/usage1 | sed -i '1d' /tmp/usage1
-awk '{printf ("%s\t",$2)}' /tmp/usage1
+awk '{printf ("%s\t",$2)}' /tmp/usage1#Checking Swap Usage
+#
+
+free -m | sed '3!d' > /tmp/memory3
+printf "%s Swap Usage: "
+SWAP=$(awk '{printf ("%s",$3)}' /tmp/memory3)
+printf $SWAP
+echo
+
+#Get the IP address for for all interfaces
+#
+
+ip -br link show > /tmp/interface
+egrep 'UNKNOWN|DOWN' /tmp/interface | sed -i '/UNKNOWN/d;/DOWN/d' /tmp/interface
+COUNT=$(wc -l interface | awk '{print $1}')
+echo
+
+for ((i=1;i<=$COUNT;i++));do
+
+sed -e "$i!"d /tmp/interface > /tmp/interface2
+INTERFACE=$(awk '{print $1}' /tmp/interface2)
+IPADDRESS=$(hostname -I | awk '{print $'$i'}')
+printf "%s\t\t\tIPv4 address for "
+echo $INTERFACE": $IPADDRESS"
+
+done
+echo
+
+echo 
+echo
+
 
 #How many active processes
 #
@@ -128,4 +158,34 @@ USERS=$(who | wc -l)
 
 printf "%s \t\t Users logged in: "
 echo $USERS
+#Checking Swap Usage
+#
+
+free -m | sed '3!d' > /tmp/memory3
+printf "%s Swap Usage: "
+SWAP=$(awk '{printf ("%s",$3)}' /tmp/memory3)
+printf $SWAP
+echo
+
+#Get the IP address for for all interfaces
+#
+
+ip -br link show > /tmp/interface
+egrep 'UNKNOWN|DOWN' /tmp/interface | sed -i '/UNKNOWN/d;/DOWN/d' /tmp/interface
+COUNT=$(wc -l interface | awk '{print $1}')
+echo
+
+for ((i=1;i<=$COUNT;i++));do
+
+sed -e "$i!"d /tmp/interface > /tmp/interface2
+INTERFACE=$(awk '{print $1}' /tmp/interface2)
+IPADDRESS=$(hostname -I | awk '{print $'$i'}')
+printf "%s\t\t\tIPv4 address for "
+echo $INTERFACE": $IPADDRESS"
+
+done
+echo
+
+echo 
+echo
 
