@@ -22,6 +22,9 @@ awk '{print $2}' /tmp/memory
 
 #Hard drive usage
 #
+#in order to get the right output the /dev/mapper/debian--vg-root will need to be changed according to the computer that script running it
+#by typing df -h
+
 df -h /dev/mapper/debian--vg-root > /tmp/usage1 | sed -i '1d' /tmp/usage1
 printf "%s usage of /:   "
 awk '{printf("%s of ",$5)}' /tmp/usage1
