@@ -19,8 +19,8 @@ sed -i 's/^/yes | sudo apt install /g' /tmp/upgrade1.sh
 
 #The script will direct the output into logfile so we can keep on track with the outcome
 ###### please add path
-bash /tmp/upgrade1.sh > /path/updates_$(date +%d-%m-%Y).log
-
+#add path for the log and uncomment the next line
+#bash /tmp/upgrade1.sh > /path/updates_$(date +%d-%m-%Y).log
 
 #The script will double check, the upgradable DB should be empty in this stage
 sudo apt list --upgradable > /tmp/doublecheck.txt
@@ -35,16 +35,16 @@ fi
 
 #In case that any error will occure and prevent the packge/s to be installed the script to modify 
 #If the packges installed successfully we will receive email with the list of packges installed and how many
+
 if [ $FILESIZE1 -gt 1 ];then
-echo "Please check for the root cause!" | mail -s "Your Ubuntu server was not updated due to error" username@domain.com
+echo "Please check for the root cause!" | mail -s "Your Ubuntu server was not updated due to error" boaz>
+exit
 fi
 
-if [ $FILESIZE2 -eq 1 ];then
-echo "No updates" | mail -s "Your server has been updated" username@domain.com
+if [ $FILESIZE2 -eq 0 ];then
+ echo "No updates" | mail -s "Your Ubuntu server has been updated" boaznire@gmail.com
 else 
-sudo echo "Total updates: $count" >> /tmp/upgrade1.txt;
-cat /tmp/upgrade1.txt | mail -s "Your server has been updated" username@domain.com
+sudo echo >> /tmp/upgrade1.txt
+sudo echo "Total updates: $count" >> /tmp/upgrade1.txt
+cat /tmp/upgrade1.txt | mail -s "Your ubuntu server has been updated" boaznire@gmail.com
 fi
-
-
-
