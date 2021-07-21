@@ -28,7 +28,7 @@ sudo apt list --upgradable > /tmp/doublecheck.txt
 FILESIZE1=$( wc -l /tmp/doublecheck.txt | awk '{print $1}')
 FILESIZE2=$( wc -l /tmp/upgrade1.sh | awk '{print $1}')
 
-if [ -s /tmp/upgrade1.txt ];then#
+if [ -s /tmp/upgrade1.txt ];then
 count=$(wc -l /tmp/upgrade1.txt | awk '{print $1}')
 echo
 fi
