@@ -37,14 +37,14 @@ fi
 #If the packges installed successfully we will receive email with the list of packges installed and how many
 
 if [ $FILESIZE1 -gt 1 ];then
-echo "Please check for the root cause!" | mail -s "Your Ubuntu server was not updated due to error" boaz>
+echo "Please check for the root cause!" | mail -s "Your Ubuntu server was not updated due to error" email@address.com>
 exit
 fi
 
 if [ $FILESIZE2 -eq 0 ];then
- echo "No updates" | mail -s "Your Ubuntu server has been updated" boaznire@gmail.com
+ echo "No updates" | mail -s "Your Ubuntu server has been updated" email@address.com
 else 
 sudo echo >> /tmp/upgrade1.txt
 sudo echo "Total updates: $count" >> /tmp/upgrade1.txt
-cat /tmp/upgrade1.txt | mail -s "Your ubuntu server has been updated" boaznire@gmail.com
+cat /tmp/upgrade1.txt | mail -s "Your ubuntu server has been updated" email@address.com
 fi
